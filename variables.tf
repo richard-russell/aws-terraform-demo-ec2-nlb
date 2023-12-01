@@ -5,7 +5,7 @@ locals {
   formatted_timestamp = formatdate("YYYY-MM-DD hh:mm:ss", timestamp())
 }
 
-variable "default_tags" {
+variable "aws_default_tags" {
   type        = map(string)
   description = "a set of tags to watermark the resources you deployed with Terraform."
   default = {
@@ -14,14 +14,17 @@ variable "default_tags" {
   }
 }
 
-# Uncomment as needed
+variable "aws_region" {
+  description = "AWS region to launch servers."
+  default     = "eu-west-1"
+}
 
-# variable "HCP_CLIENT_ID" {
-#   type        = string
-#   description = "The OAuth2 Client ID for API operations."
-# }
+variable "env" {
+  type        = string
+  description = "Environment name"
+  default     = ""
+}
 
-# variable "HCP_CLIENT_SECRET" {
-#   type        = string
-#   description = "The OAuth2 Client Secret for API operations."
-# }
+variable "service_name" {
+  description = "Name of the service to be created by the module"
+}
