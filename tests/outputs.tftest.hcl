@@ -1,6 +1,11 @@
 
 # WARNING: Generated module tests should be considered experimental and be reviewed by the module author.
 
+variables {
+  service_name = "test-service"
+  env = "test-env"
+}
+
 run "outputs_validation" {
   assert {
     condition     = output.server_url == "http://${aws_instance.webserver.public_ip}"
