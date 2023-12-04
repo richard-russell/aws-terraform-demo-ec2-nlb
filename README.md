@@ -4,7 +4,6 @@
 
 This module creates an EC2 instance and NLB. HTTP only to avoid dependencies on DNS and certs, making it a standalone module.
 
-
 ## Terraform Configuration information
 
 <!-- BEGIN_TF_DOCS -->

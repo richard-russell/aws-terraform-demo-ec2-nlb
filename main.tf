@@ -132,7 +132,7 @@ resource "aws_lb_listener" "tcp_http" {
 }
 
 resource "aws_lb_target_group" "tcp_http" {
-  name     = "demo-ec2-nlb-tg-tcp-http"
+  name     = "${local.service_name}-http"
   port     = 80
   protocol = "TCP"
   vpc_id   = aws_vpc.default.id
