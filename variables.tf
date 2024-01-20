@@ -27,4 +27,13 @@ variable "env" {
 
 variable "service_name" {
   description = "Name of the service to be created by the module"
+
+  validation {
+    condition     = length(var.service_name) < 20
+    error_message = "Service Name must be no longer than 20 characters (is ${length(var.service_name)})"
+  }
+  validation {
+    condition     = length(var.service_name) > 0
+    error_message = "Service Name must be 1 or more characters (is ${length(var.service_name)})"
+  }
 }

@@ -102,6 +102,7 @@ resource "aws_instance" "webserver" {
   user_data = <<-EOF
 #!/bin/bash -v
 yum install -y httpd
+echo “Hello World from $(hostname -f)” > /var/www/html/index.html
 systemctl start httpd &&  systemctl enable httpd
 yum install -y mod_ssl
 cd /etc/pki/tls/certs
@@ -149,4 +150,22 @@ output "server_url" {
 
 output "lb_url" {
   value = "http://${aws_lb.lb.dns_name}"
+}
+
+check "response" {
+  data "http" "this" {
+    url      = "http://${aws_lb.lb.dns_name}"
+    insecure = true
+
+    retry {
+      attempts     = 100
+      max_delay_ms = 10000
+      min_delay_ms = 1000
+    }
+  }
+
+  assert {
+    condition     = data.http.this.status_code == 200
+    error_message = "HTTP response is ${data.http.this.status_code}"
+  }
 }
