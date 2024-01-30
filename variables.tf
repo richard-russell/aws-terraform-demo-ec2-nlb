@@ -36,4 +36,8 @@ variable "service_name" {
     condition     = length(var.service_name) > 0
     error_message = "Service Name must be 1 or more characters (is ${length(var.service_name)})"
   }
+  validation {
+    condition     = can(regex("^[A-Za-z0-9-]+$", var.service_name))
+    error_message = "Service name can contain only alphanumeric characters and hyphens"
+  }
 }
