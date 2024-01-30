@@ -6,7 +6,7 @@ variables {
   env = "test-env"
 }
 
-run "attributes_validation" {
+run "integration" {
   assert {
     condition     = local.service_name == "test-service-test-env"
     error_message = "incorrect service name"
@@ -52,20 +52,10 @@ run "attributes_validation" {
     error_message = "incorrect AMI for webserver instance"
   }
 
-  # assert {
-  #   condition     = aws_instance.webserver.vpc_security_group_ids[0] == aws_security_group.instance.id
-  #   error_message = "incorrect security group ID for webserver instance"
-  # }
-
   assert {
     condition     = aws_instance.webserver.subnet_id == aws_subnet.instance.id
     error_message = "incorrect subnet ID for webserver instance"
   }
-
-  # assert {
-  #   condition     = aws_lb.lb.subnets[0] == aws_subnet.lb.id
-  #   error_message = "incorrect subnet ID for load balancer"
-  # }
 
   assert {
     condition     = aws_lb_listener.tcp_http.load_balancer_arn == aws_lb.lb.arn
