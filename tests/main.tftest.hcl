@@ -86,4 +86,15 @@ run "attributes_validation" {
     condition     = aws_lb_target_group_attachment.tcp_http.target_id == aws_instance.webserver.id
     error_message = "incorrect target ID for attachment"
   }
+
+  assert {
+    condition     = output.server_url == "http://${aws_instance.webserver.public_ip}"
+    error_message = "incorrect server URL"
+  }
+
+  assert {
+    condition     = output.lb_url == "http://${aws_lb.lb.dns_name}"
+    error_message = "incorrect load balancer URL"
+  }
+
 }
