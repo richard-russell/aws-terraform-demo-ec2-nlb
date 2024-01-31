@@ -1,4 +1,3 @@
-# mock_provider "aws" {}
 
 variables {
   service_name = "test-service"
