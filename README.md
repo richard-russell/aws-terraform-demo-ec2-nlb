@@ -1,4 +1,4 @@
-# terraform-generic-template
+# AWS EC2 NLB Demo
 
 ## About
 
