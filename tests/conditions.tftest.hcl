@@ -23,3 +23,16 @@ run "service_name_too_short" {
     var.service_name,
   ]
 }
+
+run "service_name_invalid_chars" {
+  command = plan
+
+  variables {
+    service_name = "abc_123"
+    env = "dev"
+  }
+
+  expect_failures = [
+    var.service_name,
+  ]
+}

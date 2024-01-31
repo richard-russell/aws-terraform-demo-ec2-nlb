@@ -6,7 +6,7 @@ variables {
   env = "test-env"
 }
 
-run "attributes_validation" {
+run "integration" {
   assert {
     condition     = local.service_name == "test-service-test-env"
     error_message = "incorrect service name"
@@ -52,20 +52,10 @@ run "attributes_validation" {
     error_message = "incorrect AMI for webserver instance"
   }
 
-  # assert {
-  #   condition     = aws_instance.webserver.vpc_security_group_ids[0] == aws_security_group.instance.id
-  #   error_message = "incorrect security group ID for webserver instance"
-  # }
-
   assert {
     condition     = aws_instance.webserver.subnet_id == aws_subnet.instance.id
     error_message = "incorrect subnet ID for webserver instance"
   }
-
-  # assert {
-  #   condition     = aws_lb.lb.subnets[0] == aws_subnet.lb.id
-  #   error_message = "incorrect subnet ID for load balancer"
-  # }
 
   assert {
     condition     = aws_lb_listener.tcp_http.load_balancer_arn == aws_lb.lb.arn
@@ -86,4 +76,15 @@ run "attributes_validation" {
     condition     = aws_lb_target_group_attachment.tcp_http.target_id == aws_instance.webserver.id
     error_message = "incorrect target ID for attachment"
   }
+
+  assert {
+    condition     = output.server_url == "http://${aws_instance.webserver.public_ip}"
+    error_message = "incorrect server URL"
+  }
+
+  assert {
+    condition     = output.lb_url == "http://${aws_lb.lb.dns_name}"
+    error_message = "incorrect load balancer URL"
+  }
+
 }
