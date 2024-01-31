@@ -12,7 +12,7 @@ This module creates an EC2 instance and NLB. HTTP only to avoid dependencies on 
 
 | Name | Version |
 |------|---------|
-| terraform | >= 1.6.0 |
+| terraform | >= 1.7.1 |
 
 ### Modules
 
