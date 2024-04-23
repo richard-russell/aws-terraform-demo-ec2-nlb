@@ -1,6 +1,6 @@
 terraform {
   # Terraform cli version
-  required_version = ">= 1.6.0"
+  required_version = ">= 1.7.1"
   # Backend on Terraform Cloud or Terraform Enterprise
   # comment the cloud{} block to work with local state.
   # cloud {

@@ -88,3 +88,18 @@ run "integration" {
   }
 
 }
+
+# make sure check block fails with status_code != 200
+run "test_response_check" {
+
+  override_data {
+    target = data.http.this
+    values = {
+      status_code = 401
+    }
+  }
+
+  expect_failures = [
+    check.response
+  ]
+}
