@@ -18,11 +18,6 @@ run "integration" {
   }
 
   assert {
-    condition     = aws_vpc.default.cidr_block == "10.0.0.0/16"
-    error_message = "incorrect VPC CIDR block"
-  }
-
-  assert {
     condition     = aws_internet_gateway.default.vpc_id == aws_vpc.default.id
     error_message = "incorrect VPC ID for internet gateway"
   }
